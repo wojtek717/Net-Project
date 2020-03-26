@@ -23,6 +23,18 @@ namespace CityWeather
         public MainWindow()
         {
             InitializeComponent();
+
+            Person person1 = new Person("Wojciech", "Konury", 22);
+            Person person2 = new Person("Michalina", "Kmieciak", 21);
+
+            person1.Name = "Puperek";
+            Console.WriteLine(person1.Name);
+
+            List<Person> persons = new List<Person>();
+            persons.Add(person1);
+            persons.Add(person2);
+
+            citiesList.ItemsSource = persons;
         }
     }
 }
