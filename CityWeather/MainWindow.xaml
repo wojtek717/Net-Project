@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="425">
     <Grid>
         <Label x:Name="watchCities" Content="Obserwowane miasta:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="160"/>
-        <Button Content="Dodaj nowe miasto" HorizontalAlignment="Left" Margin="225,16,0,0" VerticalAlignment="Top" Width="182"/>
+        <Button Content="Zarzadzaj obserwowanymi" HorizontalAlignment="Left" Margin="225,16,0,0" VerticalAlignment="Top" Width="182" Click="Button_Click"/>
         <ListBox x:Name="citiesList" HorizontalAlignment="Left" Height="345" Margin="10,64,0,0" VerticalAlignment="Top" Width="397" ItemsSource="{Binding}">
             <ListBox.ItemTemplate>
                 <DataTemplate>

@@ -10,19 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CityWeather
 {
     /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
+    /// Logika interakcji dla klasy ManageCitiesWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ManageCitiesWindow : Window
     {
-        List<Person> persons = new List<Person>();
-
-        public MainWindow()
+        public ManageCitiesWindow()
         {
             InitializeComponent();
 
@@ -32,17 +29,16 @@ namespace CityWeather
             person1.Name = "Puperek";
             Console.WriteLine(person1.Name);
 
-
+            List<Person> persons = new List<Person>();
             persons.Add(person1);
             persons.Add(person2);
 
-            citiesList.ItemsSource = persons;
+            watchedCitiesList .ItemsSource = persons;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            ManageCitiesWindow mcWindow = new ManageCitiesWindow();
-            mcWindow.Show();
+
         }
     }
 }
