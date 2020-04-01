@@ -41,8 +41,7 @@ namespace CityWeather
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ManageCitiesWindow mcWindow = new ManageCitiesWindow();
-            mcWindow.Show();
+
         }
     }
 }
