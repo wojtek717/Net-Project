@@ -26,6 +26,8 @@ namespace CityWeather
         {
             InitializeComponent();
 
+            ApiService apiService = new ApiService();
+
             Person person1 = new Person("Wojciech", "Konury", 22);
             Person person2 = new Person("Michalina", "Kmieciak", 21);
 

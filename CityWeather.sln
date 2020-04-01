@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CityWeather", "CityWeather\CityWeather.csproj", "{EB4119A1-BAA3-4507-83EC-8C5CD678E7F8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3DF0D846-5354-4CC3-860E-5B2463ABC388}"
+	ProjectSection(SolutionItems) = preProject
+		App.config = App.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
