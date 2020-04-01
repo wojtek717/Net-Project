@@ -10,11 +10,11 @@ namespace CityWeather
 {
     class ApiService
     {
-        string apiKey;
+        string sAttr;
 
         public ApiService()
         {
-            apiKey = ConfigurationManager.AppSettings.Get("APIKEY");
+            sAttr = ConfigurationManager.AppSettings.Get("APIKEY");
         }
     }
 }
