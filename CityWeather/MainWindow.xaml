@@ -5,8 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CityWeather"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="425">
+
+    <StackPanel Orientation="Vertical" Margin="10 10 10 10">
+        <StackPanel Orientation="Horizontal">
+            <TextBox x:Name="addCityTextbox" Text="Wpisz miasto do obserwowania" Width="200" Padding="5" Margin="0 0 20 0" TextChanged="addCityTextbox_TextChanged"/>
+            <Button x:Name="addCityButton" Content="Dodaj miasto" Click="addCityButton_Click"></Button>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Obserwowane miasta:"></Label>
+        </StackPanel>
         
-    </Grid>
+        <ListBox x:Name="citiesList"  Margin="0,0,0,0"  ItemsSource="{Binding}" Height="290">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock Text="{Binding Age}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button x:Name="downloadNewDataButton" Content="Pobierz nowe dane" Margin="0 15 0 0" Click="downloadNewDataButton_Click"></Button>
+
+    </StackPanel>
 </Window>

@@ -20,9 +20,43 @@ namespace CityWeather
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Person> persons = new List<Person>();
+
         public MainWindow()
         {
             InitializeComponent();
+
+            Person person1 = new Person("Wojciech", "Konury", 22);
+            Person person2 = new Person("Michalina", "Kmieciak", 21);
+
+            person1.Name = "Puperek";
+            Console.WriteLine(person1.Name);
+
+
+            persons.Add(person1);
+            persons.Add(person2);
+
+            citiesList.ItemsSource = persons;
+        }
+
+        private void addCityButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void downloadNewDataButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        private void addCityTextbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                Console.WriteLine(textBox.Text);
+            }
         }
     }
 }
