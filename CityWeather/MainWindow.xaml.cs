@@ -39,9 +39,24 @@ namespace CityWeather
             citiesList.ItemsSource = persons;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void addCityButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void downloadNewDataButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        private void addCityTextbox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null)
+            {
+                Console.WriteLine(textBox.Text);
+            }
         }
     }
 }

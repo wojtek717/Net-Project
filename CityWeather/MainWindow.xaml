@@ -9,8 +9,8 @@
 
     <StackPanel Orientation="Vertical" Margin="10 10 10 10">
         <StackPanel Orientation="Horizontal">
-            <TextBox Text="Wpisz miasto do obserwowania" Width="200" Padding="5" Margin="0 0 20 0"></TextBox>
-            <Button Content="Dodaj miasto"></Button>
+            <TextBox x:Name="addCityTextbox" Text="Wpisz miasto do obserwowania" Width="200" Padding="5" Margin="0 0 20 0" TextChanged="addCityTextbox_TextChanged"/>
+            <Button x:Name="addCityButton" Content="Dodaj miasto" Click="addCityButton_Click"></Button>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
@@ -28,7 +28,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button Content="Pobierz nowe dane" Margin="0 15 0 0"></Button>
+        <Button x:Name="downloadNewDataButton" Content="Pobierz nowe dane" Margin="0 15 0 0" Click="downloadNewDataButton_Click"></Button>
 
     </StackPanel>
 </Window>
