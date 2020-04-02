@@ -24,20 +24,14 @@ namespace CityWeather
         {
             apiKey = ConfigurationManager.AppSettings.Get("APIKEY");
             apiBaseUrl = ConfigurationManager.AppSettings.Get("APIURL");
-
-            getCityJson("Poznan", 3);
         }
 
 
-        async void getCityJson(string city, int days) {
+        public async Task<CityForecast> GetCityForecast(string city, int days) {
             var json = await client.GetStringAsync(apiBaseUrl + city + "," + countryShort + "&key=" + apiKey + "&days=" + (days.ToString()));
-            Console.WriteLine(json);
+            var cityForecast = CityForecast.FromJson(json);
+
+            return cityForecast;
         }
-
-
-
-
-
-
     }
 }

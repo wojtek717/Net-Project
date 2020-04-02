@@ -21,12 +21,20 @@ namespace CityWeather
     public partial class MainWindow : Window
     {
         List<Person> persons = new List<Person>();
+        List<CityForecast> forecasts = new List<CityForecast>();
 
         public MainWindow()
         {
             InitializeComponent();
 
             ApiService apiService = new ApiService();
+            // Nie dziala nie printuje cityName
+
+
+            Task.Run(async() => {
+                var cityForecast = await apiService.GetCityForecast("Wroclaw", 3);
+                Console.WriteLine(cityForecast.CityName);
+            }).Wait();
 
             Person person1 = new Person("Wojciech", "Konury", 22);
             Person person2 = new Person("Michalina", "Kmieciak", 21);
