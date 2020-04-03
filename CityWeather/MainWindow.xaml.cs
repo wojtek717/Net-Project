@@ -22,31 +22,29 @@ namespace CityWeather
     {
         List<Person> persons = new List<Person>();
         List<CityForecast> forecasts = new List<CityForecast>();
+        List<string> watchedCities = new List<string>();
+
+        ApiService apiService = new ApiService();
 
         public MainWindow()
         {
             InitializeComponent();
 
-            ApiService apiService = new ApiService();
-            // Nie dziala nie printuje cityName
+            // uzytkownik to bedzie dodawac w formularzu i te dane beda trzymane w bazie danych
+            watchedCities.Add("Wroclaw");
+            watchedCities.Add("Poznan");
 
 
             Task.Run(async() => {
-                var cityForecast = await apiService.GetCityForecast("Wroclaw", 3);
-                Console.WriteLine(cityForecast.CityName);
+                foreach (string city in watchedCities) {
+                    CityForecast cityForecast = await apiService.GetCityForecast(city, 3);
+                    Console.WriteLine(cityForecast.CityName);
+                    Console.WriteLine(cityForecast.Data[0].Temp);
+                    forecasts.Add(cityForecast);
+                }
             }).Wait();
 
-            Person person1 = new Person("Wojciech", "Konury", 22);
-            Person person2 = new Person("Michalina", "Kmieciak", 21);
-
-            person1.Name = "Puperek";
-            Console.WriteLine(person1.Name);
-
-
-            persons.Add(person1);
-            persons.Add(person2);
-
-            citiesList.ItemsSource = persons;
+            citiesList.ItemsSource = forecasts;
         }
 
         private void addCityButton_Click(object sender, RoutedEventArgs e)
