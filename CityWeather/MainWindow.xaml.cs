@@ -20,7 +20,7 @@ namespace CityWeather
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<CityForecast> forecasts = new List<CityForecast>();
+        List<CityCurrentWeather> cityCurrentWeathers = new List<CityCurrentWeather>();
         List<string> watchedCities = new List<string>();
 
         ApiService apiService = new ApiService();
@@ -33,17 +33,16 @@ namespace CityWeather
             watchedCities.Add("Wroclaw");
             watchedCities.Add("Poznan");
 
-
-            Task.Run(async() => {
-                foreach (string city in watchedCities) {
-                    CityForecast cityForecast = await apiService.GetCityForecast(city, 3);
-                    Console.WriteLine(cityForecast.CityName);
-                    Console.WriteLine(cityForecast.Data[0].Temp);
-                    forecasts.Add(cityForecast);
+            // Obsługiwanie błędy przy połączeniu z API #4
+            Task.Run(async () => {
+                foreach (string city in watchedCities)
+                {
+                    CityCurrentWeather cityCurrentWeather = await apiService.GetCityCurrentWeather(city);
+                    cityCurrentWeathers.Add(cityCurrentWeather);
                 }
             }).Wait();
 
-            citiesList.ItemsSource = forecasts;
+            citiesList.ItemsSource = cityCurrentWeathers;
         }
 
         private void addCityButton_Click(object sender, RoutedEventArgs e)
