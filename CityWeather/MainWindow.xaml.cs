@@ -33,6 +33,7 @@ namespace CityWeather
             watchedCities.Add("Wroclaw");
             watchedCities.Add("Poznan");
 
+            // Obsługiwanie błędy przy połączeniu z API #4
             Task.Run(async () => {
                 foreach (string city in watchedCities)
                 {
