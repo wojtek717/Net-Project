@@ -20,7 +20,6 @@ namespace CityWeather
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<Person> persons = new List<Person>();
         List<CityForecast> forecasts = new List<CityForecast>();
         List<string> watchedCities = new List<string>();
 
