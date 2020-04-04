@@ -14,7 +14,8 @@ namespace CityWeather
     class ApiService
     {
         string apiKey;
-        string apiBaseUrl;
+        string apiBaseUrlForecast;
+        string apiBaseUrlCurrentWeather;
 
         string countryShort = "PL";
 
@@ -23,15 +24,23 @@ namespace CityWeather
         public ApiService()
         {
             apiKey = ConfigurationManager.AppSettings.Get("APIKEY");
-            apiBaseUrl = ConfigurationManager.AppSettings.Get("APIURL");
+            apiBaseUrlForecast = ConfigurationManager.AppSettings.Get("APIURLFORECAST");
+            apiBaseUrlCurrentWeather = ConfigurationManager.AppSettings.Get("APIURLCURRENT");
         }
 
 
         public async Task<CityForecast> GetCityForecast(string city, int days) {
-            var json = await client.GetStringAsync(apiBaseUrl + city + "," + countryShort + "&key=" + apiKey + "&days=" + (days.ToString()));
+            var json = await client.GetStringAsync(apiBaseUrlForecast + city + "," + countryShort + "&key=" + apiKey + "&days=" + (days.ToString()));
             var cityForecast = CityForecast.FromJson(json);
 
             return cityForecast;
+        }
+
+        public async Task<CityCurrentWeather> GetCityCurrentWeather(string city) {
+            var json = await client.GetStringAsync(apiBaseUrlCurrentWeather + city + "," + countryShort + "&key=" + apiKey);
+            var cityCurrentWeather = CityCurrentWeather.FromJson(json);
+
+            return cityCurrentWeather;
         }
     }
 }

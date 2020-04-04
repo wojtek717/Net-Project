@@ -21,7 +21,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding CityName}"/>
+                        <TextBlock Text="{Binding Data[0].CityName}"/>
                         <TextBlock>
                             <Run Text="Temp = "/>
                             <Run Text="{Binding Data[0].Temp}"/>
