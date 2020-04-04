@@ -33,7 +33,7 @@ namespace CityWeather
             watchedCities.Add("Wroclaw");
             watchedCities.Add("Poznan");
 
-
+            // Obslugiwac bledy tutaj bo sie wywala na razie program jak nie ma np. polaczenia z internetem
             Task.Run(async() => {
                 foreach (string city in watchedCities) {
                     CityForecast cityForecast = await apiService.GetCityForecast(city, 3);
