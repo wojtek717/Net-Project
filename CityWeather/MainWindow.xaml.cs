@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity;
 
 namespace CityWeather
 {
@@ -32,6 +33,13 @@ namespace CityWeather
             // uzytkownik to bedzie dodawac w formularzu i te dane beda trzymane w bazie danych
             watchedCities.Add("Wroclaw");
             watchedCities.Add("Poznan");
+
+            // DB testing
+       
+            var db = new CityWeatherContext();
+            var _city = new CityDB { CityId = 1,  Name = "Warszawa" , WeatherData = 1 };
+            db.Cities.Add(_city);
+            db.SaveChanges();
 
             // Obsługiwanie błędy przy połączeniu z API #4
             Task.Run(async () => {
