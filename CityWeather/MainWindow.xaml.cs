@@ -92,5 +92,16 @@ namespace CityWeather
                 enteredCityName = textBox.Text;
             }
         }
+
+        private void citiesList_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var item = ItemsControl.ContainerFromElement(sender as ListBox, e.OriginalSource as DependencyObject) as ListBoxItem;
+            if (item != null)
+            {
+                CityCurrentWeather context = (CityCurrentWeather)item.DataContext;
+
+                Console.WriteLine(context.Data[0].CityName);
+            }
+        }
     }
 }
