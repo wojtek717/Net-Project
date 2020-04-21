@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.Entity;
+using System.ComponentModel;
 
 namespace CityWeather
 {
@@ -21,38 +23,63 @@ namespace CityWeather
     public partial class MainWindow : Window
     {
         List<CityCurrentWeather> cityCurrentWeathers = new List<CityCurrentWeather>();
-        List<string> watchedCities = new List<string>();
 
         ApiService apiService = new ApiService();
+        CityWeatherContext db = new CityWeatherContext();
+
+        String enteredCityName = "";
 
         public MainWindow()
         {
             InitializeComponent();
+            cityCurrentWeathers = createListToDisplayCurrentWeather(getAllCitiesInDBQuery());
 
-            // uzytkownik to bedzie dodawac w formularzu i te dane beda trzymane w bazie danych
-            watchedCities.Add("Wroclaw");
-            watchedCities.Add("Poznan");
+            citiesList.ItemsSource = cityCurrentWeathers;
+        }
 
-            // Obsługiwanie błędy przy połączeniu z API #4
+        private List<CityCurrentWeather> createListToDisplayCurrentWeather(IOrderedQueryable<CityDB> query) {
+            var cityCurrentWeathers = new List<CityCurrentWeather>();
+
             Task.Run(async () => {
-                foreach (string city in watchedCities)
+                foreach (var item in query)
                 {
+                    var city = item.Name;
                     CityCurrentWeather cityCurrentWeather = await apiService.GetCityCurrentWeather(city);
                     cityCurrentWeathers.Add(cityCurrentWeather);
                 }
             }).Wait();
 
+            return cityCurrentWeathers;
+        }
+
+        private IOrderedQueryable<CityDB> getAllCitiesInDBQuery() {
+            var query = from b in db.Cities
+                        orderby b.Name
+                        select b;
+            return query;
+        }
+
+        private void refreshCurrentWeather() {
+            cityCurrentWeathers = createListToDisplayCurrentWeather(getAllCitiesInDBQuery());
             citiesList.ItemsSource = cityCurrentWeathers;
+            ICollectionView view = CollectionViewSource.GetDefaultView(cityCurrentWeathers);
+            view.Refresh();
         }
 
         private void addCityButton_Click(object sender, RoutedEventArgs e)
         {
+            var name = enteredCityName;
+            Console.WriteLine(name);
+            var city = new CityDB { Name = name };
+            db.Cities.Add(city);
+            db.SaveChanges();
 
+            refreshCurrentWeather();
         }
 
         private void downloadNewDataButton_Click(object sender, RoutedEventArgs e)
         {
-
+            refreshCurrentWeather();
         }
 
 
@@ -62,6 +89,7 @@ namespace CityWeather
             if (textBox != null)
             {
                 Console.WriteLine(textBox.Text);
+                enteredCityName = textBox.Text;
             }
         }
     }
