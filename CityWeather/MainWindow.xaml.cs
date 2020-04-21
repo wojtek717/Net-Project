@@ -35,11 +35,28 @@ namespace CityWeather
             watchedCities.Add("Poznan");
 
             // DB testing
-       
-            var db = new CityWeatherContext();
-            var _city = new CityDB { CityId = 1,  Name = "Warszawa" , WeatherData = 1 };
-            db.Cities.Add(_city);
+            using (var db = new CityWeatherContext())
+            {
+            // Create and save a new Blog
+            var name = "Warsaw";
+
+            var city = new CityDB { Name = name };
+            db.Cities.Add(city);
             db.SaveChanges();
+
+            // Display all Blogs from the database
+            var query = from b in db.Cities
+                        orderby b.Name
+                        select b;
+
+            Console.WriteLine("All cities in the database:");
+            foreach (var item in query)
+            {
+                Console.WriteLine(item.Name);
+            }
+
+            }
+
 
             // Obsługiwanie błędy przy połączeniu z API #4
             Task.Run(async () => {

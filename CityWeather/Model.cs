@@ -5,6 +5,7 @@ namespace CityWeather
     using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
     using System.Linq;
+    using CityWeather;
 
 
         
@@ -15,6 +16,7 @@ namespace CityWeather
         }
 
         public DbSet<CityDB> Cities { get; set; }
+        public DbSet<CityTemperature> Temperatures { get; set; }
 
     }
 
@@ -23,7 +25,19 @@ namespace CityWeather
         [Key]
         public int CityId { get; set; }
         public string Name { get; set; }
-        public int WeatherData { get; set; }
+
+        public virtual List<CityTemperature> CityTemperature { get; set; }
+    }
+
+    public class CityTemperature
+    {
+        [Key]
+        public int TemperatureId { get; set; }
+        public int Temperature { get; set; }
+        public DateTime TemperatureDate { get; set; }
+
+        public int CityId { get; set; }
+        public virtual CityDB CityDB { get; set; }
     }
 
 }
