@@ -44,18 +44,38 @@
             <ListBox x:Name="cityForecastList" Height="100" ItemsSource="{Binding}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel>
+                        <StackPanel Margin="0 0 0 10">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Data:" Padding="10 0 10 0"/>
+                                <TextBlock Text="Data:" Padding="0 0 10 0"/>
                                 <TextBlock Text="{Binding Datetime.Date}" Padding="10 0 10 0" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Temperatura minimalna:" Padding="10 0 10 0"/>
-                                <TextBlock Text="{Binding MinTemp}" Padding="10 0 10 0" />
+                                <TextBlock Text="Temperatura minimalna:" Padding="0 0 10 0"/>
+                                <TextBlock>
+                                    <Run Text = "{Binding MinTemp}"/>
+                                    <Run Text = "°C"/>
+                                </TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Temperatura maksymalna:" Padding="10 0 10 0"/>
-                                <TextBlock Text="{Binding MaxTemp}" Padding="10 0 10 0" />
+                                <TextBlock Text="Temperatura maksymalna:" Padding="0 0 10 0"/>
+                                <TextBlock>
+                                    <Run Text = "{Binding MaxTemp}"/>
+                                    <Run Text = "°C"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Deszcz:" Padding="0 0 10 0"/>
+                                <TextBlock>
+                                    <Run Text = "{Binding Precip}"/>
+                                    <Run Text = "%"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Ciśnienie:" Padding="0 0 10 0"/>
+                                <TextBlock>
+                                    <Run Text = "{Binding Pres}"/>
+                                    <Run Text = "mb"/>
+                                </TextBlock>
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>
