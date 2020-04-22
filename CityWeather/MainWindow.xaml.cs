@@ -118,6 +118,7 @@ namespace CityWeather
                 Console.WriteLine(cityForecast.CityName);
 
                 cityForecastName.Text = cityForecast.CityName;
+                cityForecastList.ItemsSource = cityForecast.Data;
             }
         }
     }

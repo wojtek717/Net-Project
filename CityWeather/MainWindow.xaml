@@ -35,8 +35,32 @@
         <Button x:Name="downloadNewDataButton" Content="Pobierz nowe dane" Margin="0 15 0 0" Click="downloadNewDataButton_Click"></Button>
 
         <StackPanel>
-            <TextBlock Text="Wybrane miasto:"></TextBlock>
-            <TextBlock x:Name="cityForecastName" Text="Tutaj pojawi sie wybrane miasto z forecasta"/>
+            <StackPanel Orientation="Horizontal"  Margin="0 10 0 10">
+                <TextBlock Text="Wybrane miasto:" Padding="10 0 10 0"/>
+                <TextBlock x:Name="cityForecastName" Text="Tutaj pojawi sie wybrane miasto z forecasta" Padding="10 0 10 0"/>
+            </StackPanel>
+            <TextBlock Text="Prognoza pogody:" Padding="10 0 10 0"/>
+
+            <ListBox x:Name="cityForecastList" Height="100" ItemsSource="{Binding}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Data:" Padding="10 0 10 0"/>
+                                <TextBlock Text="{Binding Datetime.Date}" Padding="10 0 10 0" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Temperatura minimalna:" Padding="10 0 10 0"/>
+                                <TextBlock Text="{Binding MinTemp}" Padding="10 0 10 0" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Temperatura maksymalna:" Padding="10 0 10 0"/>
+                                <TextBlock Text="{Binding MaxTemp}" Padding="10 0 10 0" />
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
 
     </StackPanel>
