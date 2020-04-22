@@ -39,6 +39,15 @@ namespace CityWeather
             citiesList.ItemsSource = cityCurrentWeathers;
         }
 
+        /// <summary>
+        /// Function that create list of current weather information for all cities stored in database.
+        /// </summary>
+        /// <param name="query">
+        /// Query that return every city in database.
+        /// </param>
+        /// <returns>
+        /// Returns list of CityCurrentWeather obiect which provides all necessary weather data.
+        /// </returns>
         private List<CityCurrentWeather> createListToDisplayCurrentWeather(IOrderedQueryable<CityDB> query) {
             var cityCurrentWeathers = new List<CityCurrentWeather>();
 
@@ -54,6 +63,18 @@ namespace CityWeather
             return cityCurrentWeathers;
         }
 
+        /// <summary>
+        /// Function that gives weather forecast for specific city, for derermined number of days.
+        /// </summary>
+        /// <param name="city">
+        /// City name for which the forecast will be found.
+        /// </param>
+        /// <param name="forDays">
+        /// Number of forecast days.
+        /// </param>
+        /// <returns>
+        /// Returns CityForecast obiect which provides all necessary forecast data.
+        /// </returns>
         private CityForecast createForecastToDisplay(String city, int forDays)
         {
             Task.Run(async () => {
@@ -63,6 +84,12 @@ namespace CityWeather
             return cityForecast;
         }
 
+        /// <summary>
+        /// Function that provides access to every city stored in city datebase.
+        /// </summary>
+        /// <returns>
+        /// Function returns IOrderedQueryable<CityDB> type database query which should be use to get all cities from database.
+        /// </returns>
         private IOrderedQueryable<CityDB> getAllCitiesInDBQuery() {
             var query = from b in db.Cities
                         orderby b.Name
@@ -70,6 +97,10 @@ namespace CityWeather
             return query;
         }
 
+        /// <summary>
+        /// Function that refresh state of cities list. 
+        /// Must be called after changing cities database in order to display updated data.
+        /// </summary>
         private void refreshCurrentWeather() {
             cityCurrentWeathers = createListToDisplayCurrentWeather(getAllCitiesInDBQuery());
             citiesList.ItemsSource = cityCurrentWeathers;

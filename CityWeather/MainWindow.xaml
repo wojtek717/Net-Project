@@ -47,7 +47,7 @@
                         <StackPanel Margin="0 0 0 10">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Data:" Padding="0 0 10 0"/>
-                                <TextBlock Text="{Binding Datetime.Date}" Padding="10 0 10 0" />
+                                <TextBlock Text="{Binding Datetime.Date}" Padding="0 0 10 0" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Temperatura minimalna:" Padding="0 0 10 0"/>
