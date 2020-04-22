@@ -103,23 +103,31 @@ namespace CityWeather
                 enteredCityName = textBox.Text;
             }
         }
+        /// <summary>
+        /// Function updates user interface wich display selected city's forecast.
+        /// Function provides binding items source to take data from.
+        /// </summary>
+        /// <param name="forecastData">
+        /// CityForecast obiect that provides forecast data for city.
+        /// </param>
+        private void updateForecastUI(CityForecast forecastData) {
+            cityForecastName.Text = forecastData.CityName;
+            cityForecastList.ItemsSource = forecastData.Data;
+        }
 
         private void citiesList_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             var item = ItemsControl.ContainerFromElement(sender as ListBox, e.OriginalSource as DependencyObject) as ListBoxItem;
             if (item != null)
             {
+                // Get selected city name
                 CityCurrentWeather context = (CityCurrentWeather)item.DataContext;
                 selectedCity = context.Data[0].CityName;
 
+                // Ask API for forecast for that city
                 cityForecast = createForecastToDisplay(selectedCity, 3);
 
-                Console.WriteLine(context.Data[0].CityName);
-                Console.WriteLine(cityForecast.CityName);
-
-                cityForecastName.Text = cityForecast.CityName;
-                cityForecastList.ItemsSource = cityForecast.Data;
-                //cityForecast.Data[0].Pres
+                updateForecastUI(cityForecast);
             }
         }
     }
