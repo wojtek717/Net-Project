@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CityWeather"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="425">
+        Title="MainWindow" Height="700" Width="425">
 
     <StackPanel Orientation="Vertical" Margin="10 10 10 10">
         <StackPanel Orientation="Horizontal">
@@ -33,6 +33,11 @@
         </ListBox>
 
         <Button x:Name="downloadNewDataButton" Content="Pobierz nowe dane" Margin="0 15 0 0" Click="downloadNewDataButton_Click"></Button>
+
+        <StackPanel>
+            <TextBlock Text="Wybrane miasto:"></TextBlock>
+            <TextBlock x:Name="cityForecastName" Text="Tutaj pojawi sie wybrane miasto z forecasta"/>
+        </StackPanel>
 
     </StackPanel>
 </Window>

@@ -23,11 +23,13 @@ namespace CityWeather
     public partial class MainWindow : Window
     {
         List<CityCurrentWeather> cityCurrentWeathers = new List<CityCurrentWeather>();
+        CityForecast cityForecast = new CityForecast();
 
         ApiService apiService = new ApiService();
         CityWeatherContext db = new CityWeatherContext();
 
         String enteredCityName = "";
+        String selectedCity = "";
 
         public MainWindow()
         {
@@ -50,6 +52,15 @@ namespace CityWeather
             }).Wait();
 
             return cityCurrentWeathers;
+        }
+
+        private CityForecast createForecastToDisplay(String city, int forDays)
+        {
+            Task.Run(async () => {
+                cityForecast = await apiService.GetCityForecast(city, forDays);
+            }).Wait();
+
+            return cityForecast;
         }
 
         private IOrderedQueryable<CityDB> getAllCitiesInDBQuery() {
@@ -99,8 +110,14 @@ namespace CityWeather
             if (item != null)
             {
                 CityCurrentWeather context = (CityCurrentWeather)item.DataContext;
+                selectedCity = context.Data[0].CityName;
+
+                cityForecast = createForecastToDisplay(selectedCity, 3);
 
                 Console.WriteLine(context.Data[0].CityName);
+                Console.WriteLine(cityForecast.CityName);
+
+                cityForecastName.Text = cityForecast.CityName;
             }
         }
     }
