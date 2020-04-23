@@ -12,19 +12,19 @@
             <Label Content="Obserwowane miasta:"></Label>
         </StackPanel>
 
-        <ListBox x:Name="dataBaseCities"  ItemsSource="{Binding}" Margin="0,0,0,0" Height="290">
+        <ListBox x:Name="dataBaseCities"  ItemsSource="{Binding}" Margin="0,0,0,0" Height="290" PreviewMouseLeftButtonUp="dataBaseCities_PreviewMouseLeftButtonUp">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding Data[0].CityName}"/>
+                        <TextBlock Text="{Binding Name}"/>
                         <TextBlock>
-                            <Run Text="Temp = "/>
-                            <Run Text="{Binding Data[0].Temp}"/>
-                            <Run Text="°C"/>
+                            <Run Text="ID: "/>
+                            <Run Text="{Binding CityId}"/>
                         </TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button Content="Usuń wybrane miasto" Click="Button_Click"/>
     </StackPanel>
 </Window>

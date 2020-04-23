@@ -88,7 +88,7 @@ namespace CityWeather
         /// Function that refresh state of cities list. 
         /// Must be called after changing cities database in order to display updated data.
         /// </summary>
-        private void refreshCurrentWeather() {
+        public void refreshCurrentWeather() {
             cityCurrentWeathers = createListToDisplayCurrentWeather(dataService.getAllCitiesInDBQuery());
             citiesList.ItemsSource = cityCurrentWeathers;
             ICollectionView view = CollectionViewSource.GetDefaultView(cityCurrentWeathers);
@@ -152,6 +152,7 @@ namespace CityWeather
         private void removeCityButton_Click(object sender, RoutedEventArgs e)
         {
             ManageCities win2 = new ManageCities();
+            win2.Owner = this;
             win2.Show();
         }
     }
