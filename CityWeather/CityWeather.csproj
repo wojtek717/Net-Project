@@ -217,6 +217,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter.cs" />
+    <Compile Include="DataService.cs" />
     <Compile Include="ManageCities.xaml.cs">
       <DependentUpon>ManageCities.xaml</DependentUpon>
     </Compile>
