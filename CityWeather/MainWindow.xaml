@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CityWeather"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="425">
+        Title="MainWindow" Height="700" Width="425">
 
     <StackPanel Orientation="Vertical" Margin="10 10 10 10">
         <StackPanel Orientation="Horizontal">
@@ -17,7 +17,7 @@
             <Label Content="Obserwowane miasta:"></Label>
         </StackPanel>
         
-        <ListBox x:Name="citiesList"  Margin="0,0,0,0"  ItemsSource="{Binding}" Height="290">
+        <ListBox x:Name="citiesList"  Margin="0,0,0,0"  ItemsSource="{Binding}" Height="290" PreviewMouseLeftButtonUp="citiesList_PreviewMouseLeftButtonUp">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -33,6 +33,55 @@
         </ListBox>
 
         <Button x:Name="downloadNewDataButton" Content="Pobierz nowe dane" Margin="0 15 0 0" Click="downloadNewDataButton_Click"></Button>
+
+        <StackPanel>
+            <StackPanel Orientation="Horizontal"  Margin="0 10 0 10">
+                <TextBlock Text="Wybrane miasto:" Padding="0 0 10 0"/>
+                <TextBlock x:Name="cityForecastName" Text="Tutaj pojawi sie wybrane miasto z forecasta" Padding="10 0 10 0"/>
+            </StackPanel>
+            <TextBlock Text="Prognoza pogody:" Padding="0 0 10 0"/>
+
+            <ListBox x:Name="cityForecastList" Height="100" ItemsSource="{Binding}" Margin="0,10,0,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0 0 0 10">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Data:" Padding="0 0 10 0"/>
+                                <TextBlock Text="{Binding Datetime.Date}" Padding="0 0 10 0" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Temperatura minimalna:" Padding="0 0 10 0"/>
+                                <TextBlock>
+                                    <Run Text = "{Binding MinTemp}"/>
+                                    <Run Text = "°C"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Temperatura maksymalna:" Padding="0 0 10 0"/>
+                                <TextBlock>
+                                    <Run Text = "{Binding MaxTemp}"/>
+                                    <Run Text = "°C"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Deszcz:" Padding="0 0 10 0"/>
+                                <TextBlock>
+                                    <Run Text = "{Binding Precip}"/>
+                                    <Run Text = "%"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Ciśnienie:" Padding="0 0 10 0"/>
+                                <TextBlock>
+                                    <Run Text = "{Binding Pres}"/>
+                                    <Run Text = "mb"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
 
     </StackPanel>
 </Window>

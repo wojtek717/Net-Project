@@ -32,6 +32,7 @@ namespace CityWeather
         public async Task<CityForecast> GetCityForecast(string city, int days) {
             var json = await client.GetStringAsync(apiBaseUrlForecast + city + "," + countryShort + "&key=" + apiKey + "&days=" + (days.ToString()));
             var cityForecast = CityForecast.FromJson(json);
+            Console.WriteLine(apiBaseUrlForecast + city + "," + countryShort + "&key=" + apiKey + "&days=" + (days.ToString()));
 
             return cityForecast;
         }
