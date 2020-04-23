@@ -161,5 +161,11 @@ namespace CityWeather
                 updateForecastUI(cityForecast);
             }
         }
+
+        private void removeCityButton_Click(object sender, RoutedEventArgs e)
+        {
+            ManageCities win2 = new ManageCities();
+            win2.Show();
+        }
     }
 }
