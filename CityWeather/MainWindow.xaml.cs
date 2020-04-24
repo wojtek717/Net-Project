@@ -99,6 +99,10 @@ namespace CityWeather
         {
             if (apiService.CheckApiResponse(enteredCityName).StatusCode != System.Net.HttpStatusCode.OK) {
                 Console.WriteLine("Wrong city name");
+
+                ErrorWindow errWin = new ErrorWindow();
+                errWin.Owner = this;
+                errWin.Show();
                 return;
             }
 
