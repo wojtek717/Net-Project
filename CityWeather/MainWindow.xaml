@@ -10,7 +10,8 @@
     <StackPanel Orientation="Vertical" Margin="10 10 10 10">
         <StackPanel Orientation="Horizontal">
             <TextBox x:Name="addCityTextbox" Text="Wpisz miasto do obserwowania" Width="200" Padding="5" Margin="0 0 20 0" TextChanged="addCityTextbox_TextChanged"/>
-            <Button x:Name="addCityButton" Content="Dodaj miasto" Click="addCityButton_Click"></Button>
+            <Button x:Name="addCityButton" Content="Dodaj miasto" Click="addCityButton_Click" Margin="0 0 20 0"></Button>
+            <Button x:Name="removeCityButton" Content="Usun miasto" Click="removeCityButton_Click"></Button>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">

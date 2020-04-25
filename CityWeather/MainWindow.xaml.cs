@@ -26,7 +26,7 @@ namespace CityWeather
         CityForecast cityForecast = new CityForecast();
 
         ApiService apiService = new ApiService();
-        CityWeatherContext db = new CityWeatherContext();
+        DataService dataService = new DataService();
 
         String enteredCityName = "";
         String selectedCity = "";
@@ -34,7 +34,7 @@ namespace CityWeather
         public MainWindow()
         {
             InitializeComponent();
-            cityCurrentWeathers = createListToDisplayCurrentWeather(getAllCitiesInDBQuery());
+            cityCurrentWeathers = createListToDisplayCurrentWeather(dataService.getAllCitiesInDBQuery());
 
             citiesList.ItemsSource = cityCurrentWeathers;
         }
@@ -85,24 +85,11 @@ namespace CityWeather
         }
 
         /// <summary>
-        /// Function that provides access to every city stored in city datebase.
-        /// </summary>
-        /// <returns>
-        /// Function returns IOrderedQueryable<CityDB> type database query which should be use to get all cities from database.
-        /// </returns>
-        private IOrderedQueryable<CityDB> getAllCitiesInDBQuery() {
-            var query = from b in db.Cities
-                        orderby b.Name
-                        select b;
-            return query;
-        }
-
-        /// <summary>
         /// Function that refresh state of cities list. 
         /// Must be called after changing cities database in order to display updated data.
         /// </summary>
-        private void refreshCurrentWeather() {
-            cityCurrentWeathers = createListToDisplayCurrentWeather(getAllCitiesInDBQuery());
+        public void refreshCurrentWeather() {
+            cityCurrentWeathers = createListToDisplayCurrentWeather(dataService.getAllCitiesInDBQuery());
             citiesList.ItemsSource = cityCurrentWeathers;
             ICollectionView view = CollectionViewSource.GetDefaultView(cityCurrentWeathers);
             view.Refresh();
@@ -113,8 +100,8 @@ namespace CityWeather
             var name = enteredCityName;
             Console.WriteLine(name);
             var city = new CityDB { Name = name };
-            db.Cities.Add(city);
-            db.SaveChanges();
+            dataService.Db.Cities.Add(city);
+            dataService.Db.SaveChanges();
 
             refreshCurrentWeather();
         }
@@ -160,6 +147,13 @@ namespace CityWeather
 
                 updateForecastUI(cityForecast);
             }
+        }
+
+        private void removeCityButton_Click(object sender, RoutedEventArgs e)
+        {
+            ManageCities win2 = new ManageCities();
+            win2.Owner = this;
+            win2.Show();
         }
     }
 }

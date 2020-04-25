@@ -28,6 +28,16 @@ namespace CityWeather
             apiBaseUrlCurrentWeather = ConfigurationManager.AppSettings.Get("APIURLCURRENT");
         }
 
+         public HttpWebResponse GetResponse(string url) {
+            HttpWebRequest httpReq = (HttpWebRequest)WebRequest.Create(url);
+            httpReq.AllowAutoRedirect = false;
+
+            HttpWebResponse httpRes = (HttpWebResponse)httpReq.GetResponse();
+
+            httpRes.Close();
+
+            return httpRes;
+        }
 
         public async Task<CityForecast> GetCityForecast(string city, int days) {
             var json = await client.GetStringAsync(apiBaseUrlForecast + city + "," + countryShort + "&key=" + apiKey + "&days=" + (days.ToString()));
