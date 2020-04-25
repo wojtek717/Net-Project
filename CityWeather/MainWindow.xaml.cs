@@ -139,6 +139,8 @@ namespace CityWeather
         private void updateForecastUI(CityForecast forecastData) {
             cityForecastName.Text = forecastData.CityName;
             cityForecastList.ItemsSource = forecastData.Data;
+
+            tempSeries.ItemsSource = forecastData.Data;
         }
 
         private void citiesList_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -151,7 +153,7 @@ namespace CityWeather
                 selectedCity = context.Data[0].CityName;
 
                 // Ask API for forecast for that city
-                cityForecast = createForecastToDisplay(selectedCity, 3);
+                cityForecast = createForecastToDisplay(selectedCity, 7);
 
                 updateForecastUI(cityForecast);
             }
