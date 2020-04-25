@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CityWeather"
         xmlns:chart="http://schemas.syncfusion.com/wpf" x:Class="CityWeather.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="425">
+        Title="MainWindow" Height="850" Width="425">
 
     <StackPanel Orientation="Vertical" Margin="10 10 10 10">
         <StackPanel Orientation="Horizontal">
@@ -69,18 +69,23 @@
             </ListBox>
         </StackPanel>
 
-        <chart:SfChart x:Name="tempChart" Header="Chart Header" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Height="200
+        <chart:SfChart x:Name="dataChart" Header="Prognoza pogody" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Height="200
                        ">
             <chart:SfChart.PrimaryAxis>
-                <chart:DateTimeAxis FontSize="10" Header="Primary Axis" ShowGridLines="False"></chart:DateTimeAxis>
+                <chart:DateTimeAxis FontSize="10" Header="Data" ShowGridLines="False"></chart:DateTimeAxis>
             </chart:SfChart.PrimaryAxis>
             <chart:SfChart.SecondaryAxis>
-                <chart:NumericalAxis FontSize="10" Header="Secondary Axis"/>
+                <chart:NumericalAxis x:Name="chartY" FontSize="10" Header="Temperatura"/>
             </chart:SfChart.SecondaryAxis>
             <chart:ColumnSeries x:Name="tempSeries" ItemsSource="{Binding}" XBindingPath="Datetime.Date" YBindingPath="Temp">
-                
             </chart:ColumnSeries>
         </chart:SfChart>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="showTempChart" Content="Temperatura" Width="100" Margin="10 0 10 0" Click="showTempChart_Click"/>
+            <Button x:Name="showPresChart" Content="Ciśnienie" Width="100" Margin="10 0 10 0" Click="showPresChart_Click"/>
+            <Button x:Name="showPrecipChart" Content="Opady" Width="100" Margin="10 0 10 0" Click="showPrecipChart_Click"/>
+        </StackPanel>
 
     </StackPanel>
 </Window>

@@ -159,11 +159,37 @@ namespace CityWeather
             }
         }
 
+        private void changeChartData(string YBindingPath) {
+            tempSeries.YBindingPath = YBindingPath;
+            tempSeries.ItemsSource = cityForecast.Data;
+        }
+
         private void removeCityButton_Click(object sender, RoutedEventArgs e)
         {
             ManageCities win2 = new ManageCities();
             win2.Owner = this;
             win2.Show();
+        }
+
+        private void showTempChart_Click(object sender, RoutedEventArgs e)
+        {
+            changeChartData("Temp");
+            chartY.Minimum = -20;
+            chartY.Header = "Temperatura";
+        }
+
+        private void showPresChart_Click(object sender, RoutedEventArgs e)
+        {
+            changeChartData("Pres");
+            chartY.Minimum = 900;
+            chartY.Header = "Ciśnienie";
+        }
+
+        private void showPrecipChart_Click(object sender, RoutedEventArgs e)
+        {
+            changeChartData("Precip");
+            chartY.Minimum = 0;
+            chartY.Header = "Opady";
         }
     }
 }
