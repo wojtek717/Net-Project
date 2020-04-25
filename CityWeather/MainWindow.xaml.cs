@@ -97,8 +97,16 @@ namespace CityWeather
 
         private void addCityButton_Click(object sender, RoutedEventArgs e)
         {
+            if (apiService.CheckApiResponse(enteredCityName).StatusCode != System.Net.HttpStatusCode.OK) {
+                Console.WriteLine("Wrong city name");
+
+                ErrorWindow errWin = new ErrorWindow();
+                errWin.Owner = this;
+                errWin.Show();
+                return;
+            }
+
             var name = enteredCityName;
-            Console.WriteLine(name);
             var city = new CityDB { Name = name };
             dataService.Db.Cities.Add(city);
             dataService.Db.SaveChanges();

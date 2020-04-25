@@ -28,8 +28,8 @@ namespace CityWeather
             apiBaseUrlCurrentWeather = ConfigurationManager.AppSettings.Get("APIURLCURRENT");
         }
 
-         public HttpWebResponse GetResponse(string url) {
-            HttpWebRequest httpReq = (HttpWebRequest)WebRequest.Create(url);
+         public HttpWebResponse CheckApiResponse(string city) {
+            HttpWebRequest httpReq = (HttpWebRequest)WebRequest.Create(apiBaseUrlCurrentWeather + city + "," + countryShort + "&key=" + apiKey);
             httpReq.AllowAutoRedirect = false;
 
             HttpWebResponse httpRes = (HttpWebResponse)httpReq.GetResponse();
