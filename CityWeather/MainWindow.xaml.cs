@@ -159,8 +159,11 @@ namespace CityWeather
             }
         }
 
-        private void changeChartData(string YBindingPath) {
+        private void changeChartData(string YBindingPath, string axisTitle, Double minimum) {
             tempSeries.YBindingPath = YBindingPath;
+            chartY.Minimum = minimum;
+            chartY.Header = axisTitle;
+
             tempSeries.ItemsSource = cityForecast.Data;
         }
 
@@ -173,23 +176,17 @@ namespace CityWeather
 
         private void showTempChart_Click(object sender, RoutedEventArgs e)
         {
-            changeChartData("Temp");
-            chartY.Minimum = -20;
-            chartY.Header = "Temperatura";
+            changeChartData("Temp", "Temperatura", -20);
         }
 
         private void showPresChart_Click(object sender, RoutedEventArgs e)
         {
-            changeChartData("Pres");
-            chartY.Minimum = 900;
-            chartY.Header = "Ciśnienie";
+            changeChartData("Pres", "Ciśnienie", 900);
         }
 
         private void showPrecipChart_Click(object sender, RoutedEventArgs e)
         {
-            changeChartData("Precip");
-            chartY.Minimum = 0;
-            chartY.Header = "Opady";
+            changeChartData("Precip", "Opady", 0);
         }
     }
 }
