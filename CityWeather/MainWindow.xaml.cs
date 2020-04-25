@@ -159,6 +159,18 @@ namespace CityWeather
             }
         }
 
+        /// <summary>
+        /// Function that allows display diffrent data on char.
+        /// </summary>
+        /// <param name="YBindingPath">
+        /// The path to the data that are intended to display.
+        /// </param>
+        /// <param name="axisTitle">
+        /// Chart data title.
+        /// </param>
+        /// <param name="minimum">
+        /// Minimum value at chart.
+        /// </param>
         private void changeChartData(string YBindingPath, string axisTitle, Double minimum) {
             tempSeries.YBindingPath = YBindingPath;
             chartY.Minimum = minimum;
