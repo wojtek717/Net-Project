@@ -51,14 +51,25 @@ namespace CityWeather
         private List<CityCurrentWeather> createListToDisplayCurrentWeather(IOrderedQueryable<CityDB> query) {
             var cityCurrentWeathers = new List<CityCurrentWeather>();
 
-            Task.Run(async () => {
-                foreach (var item in query)
-                {
-                    var city = item.Name;
-                    CityCurrentWeather cityCurrentWeather = await apiService.GetCityCurrentWeather(city);
-                    cityCurrentWeathers.Add(cityCurrentWeather);
-                }
-            }).Wait();
+            try
+            {
+                Task.Run(async () => {
+                    foreach (var item in query)
+                    {
+                        var city = item.Name;
+                        CityCurrentWeather cityCurrentWeather = await apiService.GetCityCurrentWeather(city);
+                        cityCurrentWeathers.Add(cityCurrentWeather);
+                    }
+                }).Wait();
+            }
+            catch (Exception e) {
+                Console.WriteLine(e);
+                ErrorWindow win2 = new ErrorWindow();
+                win2.errorLabel.Content = "Błąd połączenia z API";
+                win2.Show();
+            }
+
+
 
             return cityCurrentWeathers;
         }
@@ -77,9 +88,18 @@ namespace CityWeather
         /// </returns>
         private CityForecast createForecastToDisplay(String city, int forDays)
         {
-            Task.Run(async () => {
-                cityForecast = await apiService.GetCityForecast(city, forDays);
-            }).Wait();
+            try {
+                Task.Run(async () =>
+                {
+                    cityForecast = await apiService.GetCityForecast(city, forDays);
+                }).Wait();
+            }
+            catch (Exception e) {
+                Console.WriteLine(e);
+                ErrorWindow win2 = new ErrorWindow();
+                win2.errorLabel.Content = "Błąd połączenia z API";
+                win2.Show();
+            }
 
             return cityForecast;
         }
@@ -90,6 +110,7 @@ namespace CityWeather
         /// </summary>
         public void refreshCurrentWeather() {
             cityCurrentWeathers = createListToDisplayCurrentWeather(dataService.getAllCitiesInDBQuery());
+
             citiesList.ItemsSource = cityCurrentWeathers;
             ICollectionView view = CollectionViewSource.GetDefaultView(cityCurrentWeathers);
             view.Refresh();
@@ -97,7 +118,17 @@ namespace CityWeather
 
         private void addCityButton_Click(object sender, RoutedEventArgs e)
         {
-            if (apiService.CheckApiResponse(enteredCityName).StatusCode != System.Net.HttpStatusCode.OK) {
+            var response = apiService.CheckApiResponse(enteredCityName);
+
+            if (response == null) {
+                ErrorWindow win2 = new ErrorWindow();
+                win2.errorLabel.Content = "Błąd połączenia z API";
+                win2.Show();
+
+                return;
+            }
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK) {
                 Console.WriteLine("Wrong city name");
 
                 ErrorWindow errWin = new ErrorWindow();
