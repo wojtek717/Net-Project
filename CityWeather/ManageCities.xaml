@@ -12,7 +12,7 @@
             <Label Content="Obserwowane miasta:"></Label>
         </StackPanel>
 
-        <ListBox x:Name="dataBaseCities"  ItemsSource="{Binding}" Margin="0,0,0,0" Height="290" PreviewMouseLeftButtonUp="dataBaseCities_PreviewMouseLeftButtonUp">
+        <ListBox x:Name="dataBaseCities"  ItemsSource="{Binding}" Margin="0,0,0,0" Height="290" PreviewMouseLeftButtonUp="dataBaseCities_PreviewMouseLeftButtonUp" Background="WhiteSmoke">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -25,6 +25,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="Usuń wybrane miasto" Click="Button_Click"/>
+        <Button Content="Usuń wybrane miasto" Click="Button_Click" Background="#FF6DA9FF" BorderBrush="#FF2863FF" Foreground="White" FontFamily="Microsoft YaHei UI" FontWeight="Bold"/>
     </StackPanel>
 </Window>

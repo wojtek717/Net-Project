@@ -32,11 +32,17 @@ namespace CityWeather
             HttpWebRequest httpReq = (HttpWebRequest)WebRequest.Create(apiBaseUrlCurrentWeather + city + "," + countryShort + "&key=" + apiKey);
             httpReq.AllowAutoRedirect = false;
 
-            HttpWebResponse httpRes = (HttpWebResponse)httpReq.GetResponse();
+            try {
+                HttpWebResponse httpRes = (HttpWebResponse)httpReq.GetResponse();
+                httpRes.Close();
 
-            httpRes.Close();
+                return httpRes;
+            }
+            catch(Exception e) {
+                Console.WriteLine(e);
+                return null;
+            }
 
-            return httpRes;
         }
 
         public async Task<CityForecast> GetCityForecast(string city, int days) {

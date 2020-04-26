@@ -51,14 +51,25 @@ namespace CityWeather
         private List<CityCurrentWeather> createListToDisplayCurrentWeather(IOrderedQueryable<CityDB> query) {
             var cityCurrentWeathers = new List<CityCurrentWeather>();
 
-            Task.Run(async () => {
-                foreach (var item in query)
-                {
-                    var city = item.Name;
-                    CityCurrentWeather cityCurrentWeather = await apiService.GetCityCurrentWeather(city);
-                    cityCurrentWeathers.Add(cityCurrentWeather);
-                }
-            }).Wait();
+            try
+            {
+                Task.Run(async () => {
+                    foreach (var item in query)
+                    {
+                        var city = item.Name;
+                        CityCurrentWeather cityCurrentWeather = await apiService.GetCityCurrentWeather(city);
+                        cityCurrentWeathers.Add(cityCurrentWeather);
+                    }
+                }).Wait();
+            }
+            catch (Exception e) {
+                Console.WriteLine(e);
+                ErrorWindow win2 = new ErrorWindow();
+                win2.errorLabel.Content = "Błąd połączenia z API";
+                win2.Show();
+            }
+
+
 
             return cityCurrentWeathers;
         }
@@ -77,9 +88,18 @@ namespace CityWeather
         /// </returns>
         private CityForecast createForecastToDisplay(String city, int forDays)
         {
-            Task.Run(async () => {
-                cityForecast = await apiService.GetCityForecast(city, forDays);
-            }).Wait();
+            try {
+                Task.Run(async () =>
+                {
+                    cityForecast = await apiService.GetCityForecast(city, forDays);
+                }).Wait();
+            }
+            catch (Exception e) {
+                Console.WriteLine(e);
+                ErrorWindow win2 = new ErrorWindow();
+                win2.errorLabel.Content = "Błąd połączenia z API";
+                win2.Show();
+            }
 
             return cityForecast;
         }
@@ -90,6 +110,7 @@ namespace CityWeather
         /// </summary>
         public void refreshCurrentWeather() {
             cityCurrentWeathers = createListToDisplayCurrentWeather(dataService.getAllCitiesInDBQuery());
+
             citiesList.ItemsSource = cityCurrentWeathers;
             ICollectionView view = CollectionViewSource.GetDefaultView(cityCurrentWeathers);
             view.Refresh();
@@ -97,7 +118,17 @@ namespace CityWeather
 
         private void addCityButton_Click(object sender, RoutedEventArgs e)
         {
-            if (apiService.CheckApiResponse(enteredCityName).StatusCode != System.Net.HttpStatusCode.OK) {
+            var response = apiService.CheckApiResponse(enteredCityName);
+
+            if (response == null) {
+                ErrorWindow win2 = new ErrorWindow();
+                win2.errorLabel.Content = "Błąd połączenia z API";
+                win2.Show();
+
+                return;
+            }
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK) {
                 Console.WriteLine("Wrong city name");
 
                 ErrorWindow errWin = new ErrorWindow();
@@ -139,6 +170,8 @@ namespace CityWeather
         private void updateForecastUI(CityForecast forecastData) {
             cityForecastName.Text = forecastData.CityName;
             cityForecastList.ItemsSource = forecastData.Data;
+
+            tempSeries.ItemsSource = forecastData.Data;
         }
 
         private void citiesList_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -151,10 +184,30 @@ namespace CityWeather
                 selectedCity = context.Data[0].CityName;
 
                 // Ask API for forecast for that city
-                cityForecast = createForecastToDisplay(selectedCity, 3);
+                cityForecast = createForecastToDisplay(selectedCity, 7);
 
                 updateForecastUI(cityForecast);
             }
+        }
+
+        /// <summary>
+        /// Function that allows display diffrent data on char.
+        /// </summary>
+        /// <param name="YBindingPath">
+        /// The path to the data that are intended to display.
+        /// </param>
+        /// <param name="axisTitle">
+        /// Chart data title.
+        /// </param>
+        /// <param name="minimum">
+        /// Minimum value at chart.
+        /// </param>
+        private void changeChartData(string YBindingPath, string axisTitle, Double minimum) {
+            tempSeries.YBindingPath = YBindingPath;
+            chartY.Minimum = minimum;
+            chartY.Header = axisTitle;
+
+            tempSeries.ItemsSource = cityForecast.Data;
         }
 
         private void removeCityButton_Click(object sender, RoutedEventArgs e)
@@ -162,6 +215,21 @@ namespace CityWeather
             ManageCities win2 = new ManageCities();
             win2.Owner = this;
             win2.Show();
+        }
+
+        private void showTempChart_Click(object sender, RoutedEventArgs e)
+        {
+            changeChartData("Temp", "Temperatura", -20);
+        }
+
+        private void showPresChart_Click(object sender, RoutedEventArgs e)
+        {
+            changeChartData("Pres", "Ciśnienie", 900);
+        }
+
+        private void showPrecipChart_Click(object sender, RoutedEventArgs e)
+        {
+            changeChartData("Precip", "Opady", 0);
         }
     }
 }

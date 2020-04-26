@@ -1,39 +1,37 @@
-﻿<Window x:Class="CityWeather.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CityWeather"
+        xmlns:chart="http://schemas.syncfusion.com/wpf" x:Class="CityWeather.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="425">
+        Title="MainWindow" Height="850" Width="425">
 
     <StackPanel Orientation="Vertical" Margin="10 10 10 10">
         <StackPanel Orientation="Horizontal">
-            <TextBox x:Name="addCityTextbox" Text="Wpisz miasto do obserwowania" Width="200" Padding="5" Margin="0 0 20 0" TextChanged="addCityTextbox_TextChanged"/>
-            <Button x:Name="addCityButton" Content="Dodaj miasto" Click="addCityButton_Click" Margin="0 0 20 0"></Button>
-            <Button x:Name="removeCityButton" Content="Usun miasto" Click="removeCityButton_Click"></Button>
+            <TextBox x:Name="addCityTextbox" Text="Wpisz miasto do obserwowania" Width="200" Padding="5" Margin="0 0 10 0" TextChanged="addCityTextbox_TextChanged"/>
+            <Button x:Name="addCityButton" Content="Dodaj miasto" Click="addCityButton_Click" Margin="0,0,8,0" Background="#FF6DA9FF" BorderBrush="#FF2863FF" Foreground="White" FontFamily="Microsoft YaHei UI" FontWeight="Bold" RenderTransformOrigin="0.05,20">
+            </Button>
+            <Button x:Name="removeCityButton" Content="Usun miasto" Click="removeCityButton_Click" Background="#FF6DA9FF" BorderBrush="#FF2863FF" Foreground="White" FontFamily="Microsoft YaHei UI" FontWeight="Bold" RenderTransformOrigin="0.05,20" Width="84"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
-            <Label Content="Obserwowane miasta:"></Label>
+            <Label Content="Obserwowane miasta:"/>
         </StackPanel>
-        
-        <ListBox x:Name="citiesList"  Margin="0,0,0,0"  ItemsSource="{Binding}" Height="290" PreviewMouseLeftButtonUp="citiesList_PreviewMouseLeftButtonUp">
+
+        <ListBox x:Name="citiesList"  Margin="0,0,0,0"  ItemsSource="{Binding}" Height="290" PreviewMouseLeftButtonUp="citiesList_PreviewMouseLeftButtonUp" Background="WhiteSmoke">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
                         <TextBlock Text="{Binding Data[0].CityName}"/>
-                        <TextBlock>
-                            <Run Text="Temp = "/>
-                            <Run Text="{Binding Data[0].Temp}"/>
-                            <Run Text="°C"/>
-                        </TextBlock>
+                        <TextBlock><Run Text="Temp = "/><Run Text=" "/><Run Text="{Binding Data[0].Temp}"/><Run Text=" "/><Run Text="°C"/></TextBlock>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button x:Name="downloadNewDataButton" Content="Pobierz nowe dane" Margin="0 15 0 0" Click="downloadNewDataButton_Click"></Button>
+        <Button x:Name="downloadNewDataButton" Content="Pobierz nowe dane" Margin="0 15 0 0" Click="downloadNewDataButton_Click" Background="#FF6DA9FF" BorderBrush="#FF2863FF" Foreground="White" FontFamily="Microsoft YaHei UI" FontWeight="Bold" RenderTransformOrigin="0.05,20"/>
 
         <StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="0 10 0 10">
@@ -42,7 +40,7 @@
             </StackPanel>
             <TextBlock Text="Prognoza pogody:" Padding="0 0 10 0"/>
 
-            <ListBox x:Name="cityForecastList" Height="100" ItemsSource="{Binding}" Margin="0,10,0,0">
+            <ListBox x:Name="cityForecastList" Height="100" ItemsSource="{Binding}" Margin="0,10,0,0" Background="WhiteSmoke">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="0 0 0 10">
@@ -52,36 +50,42 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Temperatura minimalna:" Padding="0 0 10 0"/>
-                                <TextBlock>
-                                    <Run Text = "{Binding MinTemp}"/>
-                                    <Run Text = "°C"/>
-                                </TextBlock>
+                                <TextBlock><Run Text = "{Binding MinTemp}"/><Run Text=" "/><Run Text = "°C"/></TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Temperatura maksymalna:" Padding="0 0 10 0"/>
-                                <TextBlock>
-                                    <Run Text = "{Binding MaxTemp}"/>
-                                    <Run Text = "°C"/>
-                                </TextBlock>
+                                <TextBlock><Run Text = "{Binding MaxTemp}"/><Run Text=" "/><Run Text = "°C"/></TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Deszcz:" Padding="0 0 10 0"/>
-                                <TextBlock>
-                                    <Run Text = "{Binding Precip}"/>
-                                    <Run Text = "%"/>
-                                </TextBlock>
+                                <TextBlock><Run Text = "{Binding Precip}"/><Run Text=" "/><Run Text = "%"/></TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Ciśnienie:" Padding="0 0 10 0"/>
-                                <TextBlock>
-                                    <Run Text = "{Binding Pres}"/>
-                                    <Run Text = "mb"/>
-                                </TextBlock>
+                                <TextBlock><Run Text = "{Binding Pres}"/><Run Text=" "/><Run Text = "mb"/></TextBlock>
                             </StackPanel>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+        </StackPanel>
+
+        <chart:SfChart x:Name="dataChart" Header="Prognoza pogody" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Height="200
+                       " Background="WhiteSmoke">
+            <chart:SfChart.PrimaryAxis>
+                <chart:DateTimeAxis FontSize="10" Header="Data" ShowGridLines="False"></chart:DateTimeAxis>
+            </chart:SfChart.PrimaryAxis>
+            <chart:SfChart.SecondaryAxis>
+                <chart:NumericalAxis x:Name="chartY" FontSize="10" Header="Temperatura"/>
+            </chart:SfChart.SecondaryAxis>
+            <chart:ColumnSeries x:Name="tempSeries" ItemsSource="{Binding}" XBindingPath="Datetime.Date" YBindingPath="Temp">
+            </chart:ColumnSeries>
+        </chart:SfChart>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="showTempChart" Content="Temperatura" Width="110" Margin="10 0 10 0" Click="showTempChart_Click" Height="30" FontFamily="Microsoft YaHei UI" FontSize="15" Background="#FF6DA9FF" BorderBrush="#FF2863FF" Foreground="White" FontWeight="Bold" RenderTransformOrigin="0.05,20"/>
+            <Button x:Name="showPresChart" Content="Ciśnienie" Width="110" Margin="10 0 10 0" Click="showPresChart_Click" Height="30" FontFamily="Microsoft YaHei UI" FontSize="15" Background="#FF6DA9FF" BorderBrush="#FF2863FF" Foreground="White" FontWeight="Bold" RenderTransformOrigin="0.05,20"/>
+            <Button x:Name="showPrecipChart" Content="Opady" Width="110" Margin="10 0 10 0" Click="showPrecipChart_Click" Height="30" FontFamily="Microsoft YaHei UI" FontSize="15" Background="#FF6DA9FF" BorderBrush="#FF2863FF" Foreground="White" FontWeight="Bold" RenderTransformOrigin="0.05,20"/>
         </StackPanel>
 
     </StackPanel>
