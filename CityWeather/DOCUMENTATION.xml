@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CityWeather</name>
+    </assembly>
+    <members>
+        <!-- Badly formed XML comment ignored for member "M:CityWeather.DataService.getAllCitiesInDBQuery" -->
+        <member name="T:CityWeather.ErrorWindow">
+            <summary>
+            Interaction logic for ErrorWindow.xaml
+            </summary>
+            <summary>
+            ErrorWindow
+            </summary>
+        </member>
+        <member name="M:CityWeather.ErrorWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:CityWeather.ManageCities">
+            <summary>
+            Interaction logic for ManageCities.xaml
+            </summary>
+            <summary>
+            ManageCities
+            </summary>
+        </member>
+        <member name="M:CityWeather.ManageCities.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:CityWeather.CityWeatherContext">
+            <summary>
+            Database is made with the help of LocalDB. To first initialize the database:
+            -- Make sure you have the right reference in the 'App.config' file
+            -- Using Visual Studio, go to 'View' -> 'Server Explorer' -> Right click on 'Data Connections' -> 'Add Connection'
+            -- in the 'Server Name' field, paste following '(LocalDb)\MSSQLLocalDB'
+            -- in the 'Select or enter a database name' choose 'CityWeather.Model'
+            -- Confirm by clicking ok. Your local database should be set up.
+            </summary>
+            <summary>
+            Context needed for the database made using Entity Framework Code First approach.
+            </summary>
+        </member>
+        <member name="T:CityWeather.CityDB">
+            <summary>
+            Database class made using Entity Framework Code First approach. Holds City' Names and assigns them unique ID.
+            </summary>
+        </member>
+        <member name="T:CityWeather.App">
+            <summary>
+            Logika interakcji dla klasy App.xaml
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="M:CityWeather.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:CityWeather.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="T:CityWeather.MainWindow">
+            <summary>
+            Interaction logic for MainWindow.xaml class
+            </summary>
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="M:CityWeather.MainWindow.createListToDisplayCurrentWeather(System.Linq.IOrderedQueryable{CityWeather.CityDB})">
+            <summary>
+            Function that create list of current weather information for all cities stored in database.
+            </summary>
+            <param name="query">
+            Query that returns every city in database.
+            </param>
+            <returns>
+            Returns list of CityCurrentWeather obiect which provides all necessary weather data.
+            </returns>
+        </member>
+        <member name="M:CityWeather.MainWindow.createForecastToDisplay(System.String,System.Int32)">
+            <summary>
+            Function that gives weather forecast for specific city, for derermined number of days.
+            </summary>
+            <param name="city">
+            City name for which the forecast will be found.
+            </param>
+            <param name="forDays">
+            Number of forecast days.
+            </param>
+            <returns>
+            Returns CityForecast obiect which provides all necessary forecast data.
+            </returns>
+        </member>
+        <member name="M:CityWeather.MainWindow.refreshCurrentWeather">
+            <summary>
+            Function that refresh state of cities list. 
+            Must be called after changing cities database in order to display updated data.
+            </summary>
+        </member>
+        <member name="M:CityWeather.MainWindow.updateForecastUI(CityWeather.CityForecast)">
+            <summary>
+            Function updates user interface wich display selected city's forecast.
+            Function provides binding items source to take data from.
+            </summary>
+            <param name="forecastData">
+            CityForecast obiect that provides forecast data for city.
+            </param>
+        </member>
+        <member name="M:CityWeather.MainWindow.changeChartData(System.String,System.String,System.Double)">
+            <summary>
+            Function that allows display diffrent data on char.
+            </summary>
+            <param name="YBindingPath">
+            The path to the data that are intended to display.
+            </param>
+            <param name="axisTitle">
+            Chart data title.
+            </param>
+            <param name="minimum">
+            Minimum value at chart.
+            </param>
+        </member>
+        <member name="M:CityWeather.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:CityWeather.Properties.Resources">
+            <summary>
+              Silnie typizowana klasa zasobów do wyszukiwania zlokalizowanych ciągów itd.
+            </summary>
+        </member>
+        <member name="P:CityWeather.Properties.Resources.ResourceManager">
+            <summary>
+              Zwraca buforowane wystąpienie składnika ResourceManager używane przez tę klasę.
+            </summary>
+        </member>
+        <member name="P:CityWeather.Properties.Resources.Culture">
+            <summary>
+              Przesłania właściwość CurrentUICulture bieżącego wątku dla wszystkich
+              przypadków przeszukiwania zasobów za pomocą tej silnie typizowanej klasy zasobów.
+            </summary>
+        </member>
+    </members>
+</doc>
