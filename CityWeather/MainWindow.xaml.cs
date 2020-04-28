@@ -18,7 +18,7 @@ using System.ComponentModel;
 namespace CityWeather
 {
     /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
+    /// Interaction logic for MainWindow.xaml class
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -43,7 +43,7 @@ namespace CityWeather
         /// Function that create list of current weather information for all cities stored in database.
         /// </summary>
         /// <param name="query">
-        /// Query that return every city in database.
+        /// Query that returns every city in database.
         /// </param>
         /// <returns>
         /// Returns list of CityCurrentWeather obiect which provides all necessary weather data.

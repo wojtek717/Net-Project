@@ -8,7 +8,19 @@ namespace CityWeather
     using CityWeather;
 
 
-        
+    /// <summary>
+    /// Database is made with the help of LocalDB. To first initialize the database:
+    /// -- Make sure you have the right reference in the 'App.config' file
+    /// -- Using Visual Studio, go to 'View' -> 'Server Explorer' -> Right click on 'Data Connections' -> 'Add Connection'
+    /// -- in the 'Server Name' field, paste following '(LocalDb)\MSSQLLocalDB'
+    /// -- in the 'Select or enter a database name' choose 'CityWeather.Model'
+    /// -- Confirm by clicking ok. Your local database should be set up.
+    /// </summary>
+
+
+    /// <summary>
+    /// Context needed for the database made using Entity Framework Code First approach.
+    /// </summary>
     public class CityWeatherContext : DbContext
     {
         public CityWeatherContext() : base("name=CityWeatherDB")
@@ -16,28 +28,17 @@ namespace CityWeather
         }
 
         public DbSet<CityDB> Cities { get; set; }
-        public DbSet<CityTemperature> Temperatures { get; set; }
-
     }
 
+    /// <summary>
+    /// Database class made using Entity Framework Code First approach. Holds City' Names and assigns them unique ID.
+    /// </summary>
     public class CityDB
     {
         [Key]
         public int CityId { get; set; }
         public string Name { get; set; }
 
-        public virtual List<CityTemperature> CityTemperature { get; set; }
-    }
-
-    public class CityTemperature
-    {
-        [Key]
-        public int TemperatureId { get; set; }
-        public int Temperature { get; set; }
-        public DateTime TemperatureDate { get; set; }
-
-        public int CityId { get; set; }
-        public virtual CityDB CityDB { get; set; }
     }
 
 }
