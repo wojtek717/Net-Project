@@ -34,6 +34,12 @@ namespace CityWeather
             dataBaseCities.ItemsSource = citiesInDataBase;
         }
 
+        /// <summary>
+        /// Function creates list of cities that user observe.
+        /// </summary>
+        /// <param name="query">
+        /// Query that returns every city in database.
+        /// </param>
         private void createListToDisplayCitiesInDataBase(IOrderedQueryable<CityDB> query)
         {
             List<CityDB> cities = new List<CityDB>();
@@ -54,6 +60,9 @@ namespace CityWeather
             }
         }
 
+        /// <summary>
+        /// Function refreshes displayed list of cities after changes in database.
+        /// </summary>
         private void refreshCurrentWeather()
         {
             createListToDisplayCitiesInDataBase(dataService.getAllCitiesInDBQuery());
