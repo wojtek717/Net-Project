@@ -1,10 +1,22 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <doc>
     <assembly>
         <name>CityWeather</name>
     </assembly>
     <members>
-        <!-- Badly formed XML comment ignored for member "M:CityWeather.DataService.getAllCitiesInDBQuery" -->
+        <member name="T:CityWeather.DataService">
+            <summary>
+            DataService provides all neccessary function to communicate with data base.
+            </summary>
+        </member>
+        <member name="M:CityWeather.DataService.getAllCitiesInDBQuery">
+            <summary>
+            Function that provides access to every city stored in city datebase.
+            </summary>
+            <returns>
+            Function returns IOrderedQueryable/<CityDB/> type database query which should be use to get all cities from database.
+            </returns>
+        </member>
         <member name="T:CityWeather.ErrorWindow">
             <summary>
             Interaction logic for ErrorWindow.xaml
@@ -24,6 +36,19 @@
             </summary>
             <summary>
             ManageCities
+            </summary>
+        </member>
+        <member name="M:CityWeather.ManageCities.createListToDisplayCitiesInDataBase(System.Linq.IOrderedQueryable{CityWeather.CityDB})">
+            <summary>
+            Function creates list of cities that user observe.
+            </summary>
+            <param name="query">
+            Query that returns every city in database.
+            </param>
+        </member>
+        <member name="M:CityWeather.ManageCities.refreshCurrentWeather">
+            <summary>
+            Function refreshes displayed list of cities after changes in database.
             </summary>
         </member>
         <member name="M:CityWeather.ManageCities.InitializeComponent">
@@ -48,6 +73,54 @@
             <summary>
             Database class made using Entity Framework Code First approach. Holds City' Names and assigns them unique ID.
             </summary>
+        </member>
+        <member name="T:CityWeather.ApiService">
+            <summary>
+            ApiService provides all neccessary methods and parameters needed to 
+            connect and receive data from weather API
+            </summary>
+        </member>
+        <member name="M:CityWeather.ApiService.#ctor">
+            <summary>
+            Constructor provides every API KEY from App.config
+            </summary>
+        </member>
+        <member name="M:CityWeather.ApiService.CheckApiResponse(System.String)">
+            <summary>
+            Function check response from API for provided city name
+            </summary>
+            <param name="city">
+            City name for which weather data will be requested
+            </param>
+            <returns>
+            Return HttpWebResponse which provides request response code.
+            </returns>
+        </member>
+        <member name="M:CityWeather.ApiService.GetCityForecast(System.String,System.Int32)">
+            <summary>
+            Function provides connection to API service and ask for forecast data for specific city and
+            given number of days.
+            </summary>
+            <param name="city">
+            City name for which forecast data will be requested.
+            </param>
+            <param name="days">
+            Number of days for wich forecaste data will be requested.
+            </param>
+            <returns>
+            Returns async operation which can contain CityForecast data after correct API response.
+            </returns>
+        </member>
+        <member name="M:CityWeather.ApiService.GetCityCurrentWeather(System.String)">
+            <summary>
+            Function provides connection to API service and ask for weather data for specific city.
+            </summary>
+            <param name="city">
+            City name for which weather data will be requested.
+            </param>
+            <returns>
+            Returns async operation which can contain CityWeather data after correct API response.
+            </returns>
         </member>
         <member name="T:CityWeather.App">
             <summary>
