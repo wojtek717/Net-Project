@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CityWeather
 {
+    /// <summary>
+    /// DataService provides all neccessary function to communicate with data base.
+    /// </summary>
     class DataService
     {
         private CityWeatherContext db = new CityWeatherContext();
